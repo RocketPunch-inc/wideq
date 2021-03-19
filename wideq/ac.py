@@ -412,16 +412,8 @@ class ACStatus(object):
             return f
 
     @property
-    def temp_cur_c(self):
-        return self._str_to_num(self.data["TempCur"])
-
-    @property
     def temp_cur_f(self):
         return self.ac.c2f[self.temp_cur_c]
-
-    @property
-    def temp_cfg_c(self):
-        return self._str_to_num(self.data["TempCfg"])
 
     @property
     def temp_cfg_f(self):
@@ -447,6 +439,26 @@ class ACStatus(object):
     def is_on(self):
         op = ACOp(lookup_enum("Operation", self.data, self.ac))
         return op != ACOp.OFF
+
+    @property
+    def sensor_pm1(self):
+        return self._str_to_num(self.data["SensorPM1"])
+
+    @property
+    def sensor_pm2(self):
+        return self._str_to_num(self.data["SensorPM2"])
+
+    @property
+    def sensor_pm10(self):
+        return self._str_to_num(self.data["SensorPM10"])
+
+    @property
+    def sensor_temperature(self):
+        return self._str_to_num(self.data["TempCur"])
+
+    @property
+    def sensor_humidity(self):
+        return self._str_to_num(self.data["SensorHumidity"]) / 10
 
     def __str__(self):
         return "ACStatus(%r %r)" % (self.ac, self.data)
